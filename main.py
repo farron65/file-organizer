@@ -24,6 +24,8 @@ class MyEventHandler(events.FileSystemEventHandler):
         file_path = str(event.src_path)
         file: str = Path(file_path).name
         tokens = re.split("[ -.]", file)
+        if Path(file_path).suffix == ".tmp" or Path(file_path).suffix == ".crdownload":
+            return
         for token in tokens:
             cls = self.classes.get(token.lower())
             if cls:
@@ -34,12 +36,12 @@ class MyEventHandler(events.FileSystemEventHandler):
                         raise TimeoutError
                     t += 1
                     try:
-                        shutil.move(file_path, f"{cls}/{file}")
-                        logging.info("Successfully moved the file")
+                        new_dt = f"{cls}/{file}"
+                        shutil.move(file_path, f"{new_dt}")
+                        logging.info(f"Successfully moved the file {file} to {new_dt}")
                         break
-                    except PermissionError:
-                        pass
-                    
+                    except (PermissionError, FileNotFoundError):
+                        pass          
                     logging.info("waiting")
                     time.sleep(5)
     
