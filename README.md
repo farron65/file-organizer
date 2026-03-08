@@ -66,4 +66,3 @@ All file transfers are saved to `logs.txt` in the project directory with the for
 2026-03-07 21:04:48,935 Successfully moved the file 'example.pptx' to: 'D:/Justice League/Spidy' 🕸️
 ```
 
-```
