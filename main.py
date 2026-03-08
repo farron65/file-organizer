@@ -11,7 +11,7 @@ from pathlib import Path
 from watchdog import events
 from watchdog.observers import Observer
 
-logging.basicConfig(level=logging.DEBUG)
+logging.basicConfig(filename="logs.txt", format='%(asctime)s %(message)s', level=logging.DEBUG)
 
 class FileMove():
     def __init__(self, file, dt):
@@ -29,11 +29,10 @@ class FileMove():
             t += 1
             try:
                 self.move_file()
-                logging.info(f"Successfully moved the file '{Path(self.file).name}' to: '{self.dt}'")
+                logging.info(f"Moved the file '{Path(self.file).name}' to: '{self.dt}'")
                 break
             except (PermissionError, FileNotFoundError):
                 pass          
-            logging.info("waiting")
             time.sleep(5)
 
 class FileWatcher(events.FileSystemEventHandler):
