@@ -63,6 +63,7 @@ Use `pythonw.exe` instead of `python.exe` to run the script silently without a c
 
 All file transfers are saved to `logs.txt` in the project directory with the format:
 ```
-2026-03-07 21:04:48,935 Successfully moved the file 'example.pptx' to: 'D:/Justice League/Spidy' 🕸️
+2026-03-07 21:04:48,935 Successfully moved the file 'example.pptx' to: 'D:/Justice League/Spidy'
 ```
+
 
