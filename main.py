@@ -32,8 +32,23 @@ class FileMove():
                 logging.info(f"Moved the file '{Path(self.file).name}' to: '{self.dt}'")
                 break
             except (PermissionError, FileNotFoundError):
-                pass          
+                pass
+            except shutil.Error:
+                i = 0
+                while True:
+                    i += 1
+
+                    new_file_name = Path(self.file).stem + f"({i})" + Path(self.file).suffix # eg Lesson (1).pdf
+                    new_file_path = Path(self.dt) / Path(new_file_name)
+                    if not self.check_file_already_exists(new_file_path):
+                        break
+                    
+                self.dt = new_file_path
+                    
             time.sleep(5)
+            
+    def check_file_already_exists(self, path: Path):
+        return path.exists()
 
 class FileWatcher(events.FileSystemEventHandler):
     
